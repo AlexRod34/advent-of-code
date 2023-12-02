@@ -1,6 +1,5 @@
-# Part 1
 import sys
-import re
+import regex as re
 
 calibration_sum = 0
 str_list = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -18,9 +17,10 @@ str_dict = {
 }
 # Open input text file and read line by line
 with open(sys.argv[1], 'r') as input_file:
-    # Search each line for the first digit and last digit using regex
+    # Search each line for the first digit and last digit using regex magic
     for line in input_file:
-        digitOrWordSearch = re.findall(('|'.join(str_list)), line)
+        pattern = ('|'.join(str_list))
+        digitOrWordSearch = re.findall(pattern, line, overlapped=True)
         firstHit = digitOrWordSearch[0]
         lastHit = digitOrWordSearch[-1]
 
@@ -34,7 +34,6 @@ with open(sys.argv[1], 'r') as input_file:
         # Concat digits and cast to int, adding the new int to the sum
         digits = firstHit + lastHit
         digits = int(digits)
-        print(digits)
         calibration_sum += digits
 
 print(calibration_sum)
